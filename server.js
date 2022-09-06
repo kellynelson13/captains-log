@@ -5,6 +5,10 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const port = 3000;
 
+// Middleware
+// Body parser middleware: give us access to req.body
+app.use(express.urlencoded({ extended: true }));
+
 
 /// ROUTES ////
 
@@ -20,6 +24,14 @@ app.get("/logs/new", (req, res) => {
 // UPDATE //
 
 // CREATE //
+app.post("/logs", (req, res) => {
+    if(req.body.shipIsBroken === "on"){
+        req.body.shipIsBroken = true
+    } else {
+        req.body.shipIsBroken = false
+    }
+    res.send(req.body)
+})
 
 // EDIT //
 
