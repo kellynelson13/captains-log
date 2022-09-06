@@ -63,6 +63,13 @@ app.post("/logs", (req, res) => {
 // EDIT //
 
 // SHOW //
+app.get("/logs/:id", (req, res) => {
+    Log.findById(req.params.id, (error, foundLog) => {
+        res.render("show.ejs", {
+            log: foundLog,
+        })
+    })
+})
 
 /// Listener ///
 app.listen(port, () => {
