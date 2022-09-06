@@ -29,6 +29,15 @@ app.use(express.urlencoded({ extended: true }));
 /// ROUTES ////
 
 // INDEX //
+app.get("/logs", (req, res) => {
+    Log.find({}, (error, allLogs) => {
+        res.render("index.ejs", {
+            logs: allLogs
+        })
+    })
+})
+    
+
 
 // NEW //
 app.get("/logs/new", (req, res) => {
