@@ -47,13 +47,30 @@ app.get("/logs/new", (req, res) => {
 })
 
 // DELETE //
-
-// UPDATE //
 app.delete("/logs/:id", (req, res) => {
     Log.findByIdAndDelete(req.params.id, (error, data) => {
         res.redirect("/logs")
     })
 })
+
+// UPDATE //
+app.put("/logs/:id", (req, res) => {
+    if(req.body.shipIsBroken === "on") {
+        req.body.shipIsBroken = true
+    } else {
+        req.body.shipIsBroken = false
+    }
+    Log.findByIdAndUpdate(
+        req.params.id, 
+        req.body,
+        {
+            new:true,
+        },
+        (error, updatedLog) => {
+            res.redirect(`/logs/${req.params.id}`);
+    })
+})
+
 
 // CREATE //
 app.post("/logs", (req, res) => {
