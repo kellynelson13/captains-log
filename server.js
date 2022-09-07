@@ -4,8 +4,9 @@ const app = express();
 require("dotenv").config();
 const mongoose = require("mongoose");
 const port = 3000;
-const Log = require("./models/logs.js")
+// const Log = require("./models/logs.js")
 const methodOverride = require("method-override");
+const logsController = require("./controllers/logs")
 
 // Database Connection
 mongoose.connect(process.env.DATABASE_URL, {
@@ -26,6 +27,7 @@ db.on('disconnected', () => console.log('mongo disconnected'));
 // Body parser middleware: give us access to req.body
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use('/logs', logsController);
 
 
 /// ROUTES ////
